@@ -1,0 +1,41 @@
+file://ie_data.xls <- http://www.econ.yale.edu/~shiller/data/ie_data.xls ! download
+
+file://ie_data.csv <- file://ie_data.xls ! python
+    import csv
+    from dataconverters import xls
+
+    rows, metadata = xls.parse(open('ie_data.xls'))
+    field_names = [ f['id'] for f in metadata['fields']]
+    with open('ie_data.csv', 'w') as fout:
+        writer = csv.DictWriter(fout, field_names, lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(rows)
+
+file://../data/data.csv <- file://ie_data.csv ! python
+    import csv
+
+    # headings spread across rows 2-8
+    header = [
+        'Date',
+        'SP500',
+        'Dividend',
+        'Earnings',
+        'Consumer Price Index',
+        'Long Interest Rate',
+        'Real Price',
+        'Real Dividend',
+        'Real Earnings',
+        'P/E10'
+        ]
+    with open('ie_data.csv', 'r') as fin, \
+         open('../data/data.csv') as fout:
+        reader = csv.DictReader(fin, lineterminator='\n')
+        writer = csv.DictWriter(fout, lineterminator='\n')
+		
+		   
+    rows = [ [row[f['id']] for f in metadata['fields']] for row in rows ]
+
+
+
+        for line in reader:
+            print line
