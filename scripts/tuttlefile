@@ -7,7 +7,7 @@ file://ie_data.csv <- file://ie_data.xls ! python
     rows, metadata = xls.parse(open('ie_data.xls'))
     field_names = [ f['id'] for f in metadata['fields']]
     with open('ie_data.csv', 'w') as fout:
-        writer = csv.DictWriter(fout, field_names, lineterminator='\n')
+        writer = csv.DictWriter(fout, field_names)
         writer.writeheader()
         writer.writerows(rows)
 
@@ -29,7 +29,7 @@ file://../data/data.csv <- file://ie_data.csv ! python
         ]
     with open('ie_data.csv', 'r') as fin, \
          open('../data/data.csv') as fout:
-        reader = csv.DictReader(fin, lineterminator='\n')
+        reader = csv.DictReader(fin)
         writer = csv.DictWriter(fout, lineterminator='\n')
 		
 		   
