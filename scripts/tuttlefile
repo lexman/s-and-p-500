@@ -13,8 +13,24 @@ file://ie_data.csv <- file://ie_data.xls ! python
 
 file://../data/data.csv <- file://ie_data.csv ! python
     import csv
+    import sys
 
-    # headings spread across rows 2-8
+    def _fixup(val):
+        if val == 'NA':
+            return ''
+        elif val == '':
+            return ''
+        return round(val, 2)
+
+    def _fixdates(val):
+        # 1879.03 = march, 1879.1 = october
+        val = round(val,2)
+        year = int(val)
+        # add 0.0001 to ensure we don't have problems re rounding
+        month = int(0.1 + (val - year) * 100)
+        out = str(year) + '-' + str(month).zfill(2) + '-01'
+        return out	
+		
     header = [
         'Date',
         'SP500',
@@ -27,15 +43,34 @@ file://../data/data.csv <- file://ie_data.csv ! python
         'Real Earnings',
         'P/E10'
         ]
+    
+    def output_rows_iterator(reader):
+        num_line = 1
+        for row in reader:
+            try:
+                output_row = {
+                    'Date'                  : _fixdates(row['Date']),
+                    'SP500'                 : _fixup(row['Comp.']),
+                    'Dividend'              : _fixup(row['Dividend']),
+                    'Earnings'              : _fixup(row['Earnings']),
+                    'Consumer Price Index'  : _fixup(row['Index']),
+                    'Long Interest Rate'    : _fixup(row['Interest']),
+                    'Real Price'            : _fixup(row['Real_1']),
+                    'Real Dividend'         : _fixup(row['Real_2']),
+                    'Real Earnings'         : _fixup(row['Real_3']),
+                    'P/E10'                 : _fixup(row['P/E10 or']),
+                }
+                yield output_row
+            Except e:
+                sys.stderr.write("Ignored invalid line {}\n".format(num_line))
+            num_line += 1 
+    
     with open('ie_data.csv', 'r') as fin, \
          open('../data/data.csv') as fout:
         reader = csv.DictReader(fin)
-        writer = csv.DictWriter(fout, lineterminator='\n')
+        writer = csv.DictWriter(fout, header, lineterminator='\n')
+        writer.writeheader()
+        output_rows = output_rows_iterator(reader)
+        writer.writerows(output_rows)
 		
 		   
-    rows = [ [row[f['id']] for f in metadata['fields']] for row in rows ]
-
-
-
-        for line in reader:
-            print line
