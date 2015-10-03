@@ -20,6 +20,7 @@ Then you must configure your local ssh access to github in your ``~/.ssh/config`
 ## Clone the project... With ssh !
 
     git clone git@github.com:lexman/s-and-p-500.git
+    cd s-and-p-500
     git checkout tuttle	
 
 ## Install the dependencies
