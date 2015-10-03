@@ -1,4 +1,7 @@
+xlrd==0.9.3
+datautil
 dataconverters
-xlrd
 unicodecsv
 messytables
+jinja2
+https://github.com/lexman/tuttle/archive/v0.2.zip

@@ -27,6 +27,7 @@ The scripts work with some python code and are glued together with [tuttle](gith
 
 Install all dependencies :
 
+    cd scripts
     pip install jinja2
     pip install -r requirements.txt
 
