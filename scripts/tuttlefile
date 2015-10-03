@@ -6,7 +6,6 @@ file://ie_data.csv <- file://ie_data.xls ! python
 
     rows, metadata = xls.parse(open('ie_data.xls'))
     field_names = [ f['id'] for f in metadata['fields']]
-    print field_names
     with open('ie_data.csv', 'w') as fout:
         writer = csv.DictWriter(fout, field_names)
         writer.writeheader()
