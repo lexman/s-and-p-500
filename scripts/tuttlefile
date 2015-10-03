@@ -45,7 +45,7 @@ file://../data/data.csv <- file://ie_data.csv ! python
         ]
         
     with open('ie_data.csv', 'r') as fin, \
-         open('../data/data.csv') as fout:
+         open('../data/data.csv', 'w') as fout:
         reader = csv.DictReader(fin)
         writer = csv.DictWriter(fout, header, lineterminator='\n')
         writer.writeheader()
