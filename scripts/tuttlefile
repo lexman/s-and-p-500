@@ -70,3 +70,13 @@ file://../data/data.csv <- file://ie_data.csv ! python
                 sys.stderr.write("Ignored invalid line {}\n".format(num_line))
                 traceback.print_exc(file=sys.stderr)
             num_line += 1 
+
+http://raw.githubusercontent.com/lexman/s-and-p-500/tuttle/data/data.csv <- file://../data/data.csv
+    git add ../data/data.csv
+    TODAY=`date +%Y%m%d`
+    git commit -m "[data] automatic update $TODAY" || exit 0
+    # In case someone has pushed some changes during the processing
+    git pull --rebase
+    git push
+
+            
