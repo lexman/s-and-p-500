@@ -14,6 +14,7 @@ file://ie_data.csv <- file://ie_data.xls ! python
 file://../data/data.csv <- file://ie_data.csv ! python
     import csv
     import sys
+    import traceback
 
     def _fixup(val):
         if val == 'NA':
@@ -65,6 +66,7 @@ file://../data/data.csv <- file://ie_data.csv ! python
                     'P/E10'                 : _fixup(row['P/E10 or']),
                 }
                 writer.writerow(output_rows)
-            except Exception:
+            except:
                 sys.stderr.write("Ignored invalid line {}\n".format(num_line))
+                traceback.print_exc(file=sys.stderr)
             num_line += 1 
