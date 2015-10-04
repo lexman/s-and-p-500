@@ -79,4 +79,7 @@ http://raw.githubusercontent.com/lexman/s-and-p-500/tuttle/data/data.csv <- file
     git pull --rebase
     git push
 
-            
+http://raw.githubusercontent.com/lexman/s-and-p-500/tuttle/scripts/ie_data.xls <- file://ie_data.xls
+    git add ie_data.xls
+    git commit -m "[archive][s]: commit source xls." || exit 0
+    git pull --rebase && git push
