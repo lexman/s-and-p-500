@@ -83,3 +83,5 @@ http://raw.githubusercontent.com/lexman/s-and-p-500/tuttle/scripts/ie_data.xls <
     git add ie_data.xls
     git commit -m "[archive][s]: commit source xls." || exit 0
     git pull --rebase && git push
+    # Publication on github is neither atomic nor instantanous
+    sleep 10
